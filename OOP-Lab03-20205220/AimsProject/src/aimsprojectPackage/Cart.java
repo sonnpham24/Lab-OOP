@@ -5,7 +5,7 @@ public class Cart {
 	private DigitalVideoDisc itemsOrdered[] = new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
 	private int qtyOrdered = 0;
 	
-	// Method to add a DigitalVideoDisc to the cart
+	// Method to add a single DigitalVideoDisc to the cart
     public void addDigitalVideoDisc(DigitalVideoDisc disc) {
         if (qtyOrdered < MAX_NUMBERS_ORDERED) {
             itemsOrdered[qtyOrdered] = disc;
@@ -21,6 +21,41 @@ public class Cart {
         }
     }
     
+    //Method that allows passing an arbitrary number of arguments for DVDs
+    public void addDigitalVideoDisc(DigitalVideoDisc... dvdList) {
+        for (DigitalVideoDisc disc : dvdList) {
+            if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+                itemsOrdered[qtyOrdered] = disc;
+                qtyOrdered++;
+                System.out.println("The disc has been added: " + disc.getTitle());
+            } else {
+                System.out.println("The cart is full. Cannot add more discs.");
+                break; // Stop adding further discs if the cart is full
+            }
+        }
+    }
+    
+    // Add two DVDs to the cart
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+        if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+            // Add the first DVD
+            itemsOrdered[qtyOrdered] = dvd1;
+            qtyOrdered++;
+            System.out.println("The first disc has been added: " + dvd1.getTitle());
+        } else {
+            System.out.println("The cart is full. Cannot add the first disc: " + dvd1.getTitle());
+        }
+
+        if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+            // Add the second DVD
+            itemsOrdered[qtyOrdered] = dvd2;
+            qtyOrdered++;
+            System.out.println("The second disc has been added: " + dvd2.getTitle());
+        } else {
+            System.out.println("The cart is full. Cannot add the second disc: " + dvd2.getTitle());
+        }
+    }
+
     // Method to remove a DigitalVideoDisc from the cart
     public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
         boolean found = false;
