@@ -19,10 +19,14 @@ public class Aims {
 		DigitalVideoDisc dvd4 = new DigitalVideoDisc("A Quiet Place: Day One", "Horror", "Michael Sarnoski", 99, 68.25f);
 		anOrder.addDigitalVideoDisc(dvd4);
 		
-		anOrder.removeDigitalVideoDisc(dvd3);
+		anOrder.removeDigitalVideoDisc(dvd4);
 		
-		// Print total cost of the items in the cart
-		System.out.println("Total Cost is : ");
-		System.out.println(anOrder.totalCost());
+		// Add two DVDs at once
+        anOrder.addDigitalVideoDisc(dvd1, dvd2);
+        System.out.println("Total Cost: " + anOrder.totalCost());
+        
+		// Adding multiple DVDs using varargs
+		anOrder.addDigitalVideoDisc(dvd1, dvd2, dvd3);
+		System.out.println("Total Cost: " + anOrder.totalCost());
 	}
 }
