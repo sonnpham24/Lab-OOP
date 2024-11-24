@@ -74,4 +74,15 @@ public class DigitalVideoDisc {
         nbDigitalVideoDiscs++; // Increment the class-level counter
         this.id = nbDigitalVideoDiscs; // Assign the current count as the ID
     }
+    
+    // toString method for displaying DVD details
+    public String toString() {
+    	return "DVD - " + title + " - " + category + " - " + (director != null ? director : "Unknown") + 
+    			" - " + (length > 0 ? length + " min": "Unknown") + ": " + cost + " $";
+    }
+    
+    // isMatch method to check if the DVD matches a given title
+    public boolean isMatch(String title) {
+    	return this.title != null && this.title.equalsIgnoreCase(title);
+    }
 }
