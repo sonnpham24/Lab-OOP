@@ -1,5 +1,7 @@
 package aimsprojectPackage;
 
+import java.util.Scanner;
+
 public class CartTest {
 
 	public static void main(String[] args) {
@@ -19,7 +21,30 @@ public class CartTest {
 		//Test the print method
 		cart.print();
 		//To-do: Test the search methods here
+		Scanner scanner = new Scanner(System.in);
 		
+		// Search by ID
+        System.out.println("Enter the ID to search for a DVD:");
+        int searchId = scanner.nextInt();
+        DigitalVideoDisc resultById = cart.searchById(searchId);
+        if (resultById != null) {
+            System.out.println("Search result: " + resultById);
+        } else {
+            System.out.println("No DVD found with ID: " + searchId);
+        }
+
+        // Search by Title
+        System.out.println("Enter the title to search for a DVD:");
+        scanner.nextLine(); // Consume newline left by nextInt
+        String searchTitle = scanner.nextLine();
+        DigitalVideoDisc resultByTitle = cart.searchByTitle(searchTitle);
+        if (resultByTitle != null) {
+            System.out.println("Search result: " + resultByTitle);
+        } else {
+            System.out.println("No DVD found with title: \"" + searchTitle + "\"");
+        }
+
+        scanner.close();
 	}
 
 }
