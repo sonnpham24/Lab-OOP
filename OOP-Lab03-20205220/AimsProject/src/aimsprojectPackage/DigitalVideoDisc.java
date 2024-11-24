@@ -40,7 +40,7 @@ public class DigitalVideoDisc {
     }
 
     // Constructor 2: Create a DVD object by category, title, and cost
-    public DigitalVideoDisc(String category, String title, float cost) {
+    public DigitalVideoDisc(String title, String category, float cost) {
     	super();
         this.category = category;
         this.title = title;
@@ -83,6 +83,6 @@ public class DigitalVideoDisc {
     
     // isMatch method to check if the DVD matches a given title
     public boolean isMatch(String title) {
-    	return this.title != null && this.title.equalsIgnoreCase(title);
+    	return this.title != null && this.title.toLowerCase().contains(title.toLowerCase().trim());
     }
 }
