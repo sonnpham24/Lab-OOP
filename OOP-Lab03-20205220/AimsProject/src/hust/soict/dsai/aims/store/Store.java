@@ -1,4 +1,6 @@
-package aimsprojectPackage;
+package hust.soict.dsai.aims.store;
+
+import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 
 public class Store {
 	private static final int MAX_ITEMS = 100; // Maximum DVDs the store can hold
