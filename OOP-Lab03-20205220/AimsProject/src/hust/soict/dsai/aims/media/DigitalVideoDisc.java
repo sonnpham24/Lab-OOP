@@ -1,7 +1,7 @@
 package hust.soict.dsai.aims.media;
 
 
-public class DigitalVideoDisc extends Disc {
+public class DigitalVideoDisc extends Disc implements Playable {
 	private static int nbDigitalVideoDiscs = 0;
 	
 	// Constructor 1: Create a DVD object by title
@@ -22,6 +22,12 @@ public class DigitalVideoDisc extends Disc {
     // Constructor 4: Create a DVD object by all attributes: title, category, director, length, and cost
     public DigitalVideoDisc(int id, String title, String category, String director, int length, float cost) {
     	super(id, title, category, director, length, cost);
+    }
+    
+    // Method play()
+    public void play() {
+    	System.out.println("Playing DVD: " + this.getTitle());
+    	System.out.println("DVD length: " + this.getLength());
     }
     
     // toString method for displaying DVD details
