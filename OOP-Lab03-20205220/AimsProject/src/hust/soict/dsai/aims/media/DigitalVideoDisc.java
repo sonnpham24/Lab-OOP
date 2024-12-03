@@ -1,46 +1,33 @@
 package hust.soict.dsai.aims.media;
 
 
-public class DigitalVideoDisc extends Media {
+public class DigitalVideoDisc extends Disc {
 	private static int nbDigitalVideoDiscs = 0;
-	
-	private String director;
-	private int length;
-	
-	public String getDirector() {
-		return director;
-	}
-	public int getLength() {
-		return length;
-	}
 	
 	// Constructor 1: Create a DVD object by title
     public DigitalVideoDisc(int id, String title) {
-    	super(id, title, "Unknown", 0);
+    	super(id, title, "Unknown", "Unknown", 0, 0);
     }
 
     // Constructor 2: Create a DVD object by category, title, and cost
     public DigitalVideoDisc(int id, String title, String category, float cost) {
-    	super(id, title, category, cost);
+    	super(id, title, category, "Unknown", 0, cost);
     }
 
     // Constructor 3: Create a DVD object by director, category, title, and cost
-    public DigitalVideoDisc(int id, String director, String category, String title, float cost) {
-    	super(id, title, category, cost);
-        this.director = director;
+    public DigitalVideoDisc(int id, String title, String category, String director, float cost) {
+    	super(id, title, category, director, 0, cost);
     }
 
     // Constructor 4: Create a DVD object by all attributes: title, category, director, length, and cost
     public DigitalVideoDisc(int id, String title, String category, String director, int length, float cost) {
-    	super(id, title, category, cost);
-        this.director = director;
-        this.length = length;
+    	super(id, title, category, director, length, cost);
     }
     
     // toString method for displaying DVD details
     public String toString() {
-    	return "DVD - " + getTitle() + " - " + getCategory() + " - " + (director != null ? director : "Unknown") + 
-    			" - " + (length > 0 ? length + " min": "Unknown") + ": " + getCost() + " $";
+    	return "DVD - " + getTitle() + " - " + getCategory() + " - " + (getDirector() != null ? getDirector() : "Unknown") + 
+    			" - " + (getLength() > 0 ? getLength() + " min": "Unknown") + ": " + getCost() + " $";
     }
     
     // isMatch method to check if the DVD matches a given title
