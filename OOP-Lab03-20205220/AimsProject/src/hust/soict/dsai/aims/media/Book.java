@@ -3,7 +3,7 @@ package hust.soict.dsai.aims.media;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book extends Media{
+public class Book extends Media {
 
 	public List<String> authors = new ArrayList<String>();
 	
@@ -12,6 +12,7 @@ public class Book extends Media{
 		super(id, title, category, cost);
 		this.authors = authors;
 	}
+	
 	public void addAuthor(String authorName) {
 		if (authors.contains(authorName)) {
 			System.out.println("Author: " + authorName + " already exists!");
@@ -30,5 +31,11 @@ public class Book extends Media{
 			System.out.println("Removed author: " + authorName);
 		}
 	}
+	
+	@Override
+    public String toString() {
+        return "Book - " + getTitle() + " - " + getCategory() +
+               " - " + getCost() + " - " + authors;
+    }
 
 }

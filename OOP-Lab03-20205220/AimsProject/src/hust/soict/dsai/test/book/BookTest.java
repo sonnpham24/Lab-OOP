@@ -17,11 +17,7 @@ public class BookTest {
         authors1.add("Jack Thorne");
 
         // Print book details
-        System.out.println("Book ID: " + book1.getId());
-        System.out.println("Book Title: " + book1.getTitle());
-        System.out.println("Book Category: " + book1.getCategory());
-        System.out.println("Book Cost: " + book1.getCost() + " $");
-        System.out.println("Book Authors: " + book1.authors);
+        System.out.println(book1);
 
         // Add a new author
         book1.addAuthor("Conan Doyle");
@@ -37,6 +33,7 @@ public class BookTest {
 
         // Print final details
         System.out.println("\nUpdated Book Authors: " + book1.authors);
+        System.out.println(book1);
     }
 }
 
