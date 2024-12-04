@@ -1,6 +1,7 @@
 package hust.soict.dsai.test.media;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import hust.soict.dsai.aims.media.Book;
@@ -38,9 +39,24 @@ public class MediaTest {
 		        
 		mediae.add(cd);
 		
+		System.out.println("Before sorting:");
 		for (Media m : mediae) {
 			System.out.println(m.toString());
 		}
+		
+		// Sort by title, then cost
+        Collections.sort(mediae, Media.COMPARE_BY_TITLE_COST);
+        System.out.println("\nSorted by Title, then Cost:");
+        for (Media m : mediae) {
+            System.out.println(m.toString());
+        }
+
+        // Sort by cost, then title
+        Collections.sort(mediae, Media.COMPARE_BY_COST_TITLE);
+        System.out.println("\nSorted by Cost, then Title:");
+        for (Media m : mediae) {
+            System.out.println(m.toString());
+        }
 	}
 
 }
