@@ -53,3 +53,91 @@ When a subclass provides its own implementation of a method (e.g., toString()) t
 Java resolves method calls (like toString()) at runtime based on the actual object type, not the reference type. This is called dynamic method dispatch or runtime polymorphism. When you call toString() on a reference, Java checks the actual runtime type of the object the reference is pointing to and invokes the corresponding overridden method.
 
 In conclusion, the toString() method is resolved at runtime. If a class overrides toString(), Java will call the overridden method for objects of that class. If a subclass does not override toString(), it inherits the toString() implementation from its parent class. This allows each class to define its own version of toString(), and the JVM dynamically chooses the appropriate implementation during execution.
+
+12. Sort media in the cart
+Question: Alternatively, to compare items in the cart, instead of using Comparator, we can use the Comparable interface and override the compareTo()method. You can refer to the Java docs to see the information of this interface. 
+Suppose we are taking this Comparable interface approach.
+- What class should implement the Comparable interface?
+- In those classes, how should you implement the compareTo()method be to reflect the ordering that we want?
+- Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+- Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+Answer:
+1. What class should implement the Comparable interface?
+The Media class should implement the Comparable interface because it is the base class for all media types. By doing this, we can ensure that all subclasses of Media (e.g., Book, DigitalVideoDisc, CompactDisc) inherit a default ordering mechanism.
+
+2. How should you implement the compareTo() method to reflect the ordering we want?
+The compareTo() method in Media should reflect the ordering rules we want. For instance:
+- Ordering by title, then cost:
+	+ Compare by title lexicographically.
+	+ If titles are equal, compare by cost in ascending order.
+Example if implemented in Media class:
+@Override
+public int compareTo(Media other) {
+    // Compare by title first
+    int titleComparison = this.title.compareTo(other.title);
+    if (titleComparison != 0) {
+        return titleComparison;
+    }
+    // If titles are the same, compare by cost
+    return Float.compare(this.cost, other.cost);
+}
+
+3. Can we have two ordering rules (e.g., by title then cost, and by cost then title) using the Comparable interface approach?
+No, the Comparable interface allows only one natural ordering, defined by the compareTo() method. Therefore, we cannot define multiple ordering rules using Comparable alone.
+To have multiple ordering rules:
+- Use the Comparator interface to define additional orderings.
+- The Comparable implementation should define the default (natural) ordering.
+For example:
+- Comparable's compareTo() could define the default ordering (e.g., by title then cost).
+- Comparator implementations could provide alternative orderings (e.g., by cost then title).
+
+4. Suppose DVDs have a different ordering rule from other media types (by title, then decreasing length, then cost). How would you modify the code?
+To implement this, we need to override the compareTo() method in the DigitalVideoDisc class. This override will apply only to DigitalVideoDisc objects.
+- Make Media implement Comparable: In the Media class, define a general ordering rule, such as by title then cost.
+@Override
+public int compareTo(Media other) {
+    int titleComparison = this.title.compareTo(other.title);
+    if (titleComparison != 0) {
+        return titleComparison;
+    }
+    return Float.compare(this.cost, other.cost);
+}
+- Override compareTo() in DigitalVideoDisc: The DigitalVideoDisc class will define its own ordering rule, overriding the general compareTo() implementation in Media.
+@Override
+public int compareTo(Media other) {
+    if (other instanceof DigitalVideoDisc) {
+        DigitalVideoDisc dvd = (DigitalVideoDisc) other;
+
+        // Compare by title
+        int titleComparison = this.getTitle().compareTo(dvd.getTitle());
+        if (titleComparison != 0) {
+            return titleComparison;
+        }
+
+        // If titles are the same, compare by decreasing length
+        int lengthComparison = Integer.compare(dvd.getLength(), this.getLength());
+        if (lengthComparison != 0) {
+            return lengthComparison;
+        }
+
+        // If lengths are the same, compare by cost
+        return Float.compare(this.getCost(), dvd.getCost());
+    }
+
+    // Fall back to the default Media comparison if the other is not a DVD
+    return super.compareTo(other);
+}
+- Usage in Sorting: When using Collections.sort() with a mixed list of Media, the compareTo() method of each subclass will be invoked appropriately.
+List<Media> mediaList = new ArrayList<>();
+mediaList.add(new Book(1, "1984", "Dystopian", 15.99f, "George Orwell"));
+mediaList.add(new DigitalVideoDisc(2, "Inception", "Sci-Fi", "Christopher Nolan", 120, 12.99f));
+mediaList.add(new DigitalVideoDisc(3, "Inception", "Sci-Fi", "Christopher Nolan", 130, 14.99f));
+mediaList.add(new CompactDisc(4, "Abbey Road", "Music", "The Beatles", "George Martin", null, 19.99f));
+
+// Sort using the natural ordering
+Collections.sort(mediaList);
+
+for (Media media : mediaList) {
+    System.out.println(media);
+}
+
