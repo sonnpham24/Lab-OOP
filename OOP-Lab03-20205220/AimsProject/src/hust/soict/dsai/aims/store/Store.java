@@ -2,6 +2,7 @@ package hust.soict.dsai.aims.store;
 
 import java.util.ArrayList;
 
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 
 public class Store {
@@ -27,6 +28,16 @@ public class Store {
         	itemsInStore.remove(media);
         }
     }
+    
+    // Method to search media by title
+ 	public Media searchByTitle(String title) {
+         for (Media media : itemsInStore) {
+             if (media instanceof DigitalVideoDisc && ((DigitalVideoDisc) media).isMatch(title)) {
+                 return (DigitalVideoDisc) media;
+             }
+         }
+         return null; // Notify in TestCart instead of here
+     }
     
     // Method to print the list of DVDs currently in the store
     public void printStore() {

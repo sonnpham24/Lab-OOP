@@ -1,14 +1,22 @@
 package hust.soict.dsai.aims.cart;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.media.MediaComparatorByCostTitle;
+import hust.soict.dsai.aims.media.MediaComparatorByTitleCost;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
 	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
 	
+	// Static comparator attributes
+    public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();
+    public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
+    
 	// Method to add media
 	public void addMedia(Media media) {
 		if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
@@ -59,4 +67,51 @@ public class Cart {
         return null; // Notify in TestCart instead of here
     }
 
+    // Method to filter by ID
+    public void filterById(int id) {
+        boolean found = false;
+        for (Media media : itemsOrdered) {
+            if (media.getId() == id) {
+                System.out.println("Found media with ID " + id + ": " + media);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No media found with ID: " + id);
+        }
+    }
+    
+    // Method to filter by Title
+    public void filterByTitle(String title) {
+        boolean found = false;
+        for (Media media : itemsOrdered) {
+            if (media.getTitle().equalsIgnoreCase(title)) {
+                System.out.println("Found media with title \"" + title + "\": " + media);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No media found with title: " + title);
+        }
+    }
+    
+    // Method to sort by title, then cost
+    public void sortByTitle() {
+    	Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
+        System.out.println("Cart sorted by Title, then Cost:");
+        print();
+    }
+
+    // Method to sort items in the cart by cost
+    public void sortByCost() {
+    	Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+        System.out.println("Cart sorted by Cost, then Title:");
+        print();
+    }
+    
+    // Method to clear the cart
+    public void clear() {
+        itemsOrdered.clear();
+    }
+    
 }
