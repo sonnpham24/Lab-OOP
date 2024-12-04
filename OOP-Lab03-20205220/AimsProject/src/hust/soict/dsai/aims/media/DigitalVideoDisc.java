@@ -2,7 +2,6 @@ package hust.soict.dsai.aims.media;
 
 
 public class DigitalVideoDisc extends Disc implements Playable {
-	private static int nbDigitalVideoDiscs = 0;
 	
 	// Constructor 1: Create a DVD object by title
     public DigitalVideoDisc(int id, String title) {
