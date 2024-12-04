@@ -1,0 +1,17 @@
+ANSWERS FOR LAB04 QUESTIONS
+
+Name: Pham Cong Son
+MSSV: 20205220
+
+9. Constructors of whole classes and parent classes
+Question: Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?
+Answer:
+- Media is the parent (superclass) of all media types (Book, Disc): initializes id, title, category, cost (all parts)
+- Book and Disc are aggregates of Media
+	+ Book only initializes author
+	+ Disc only initializes director, length
+- DigitalVideoDisc and CompactDisc are aggregates of Disc
+	+ DigitalVideoDisc don't have to initialize any part
+	+ CompactDisc only initializes artist, tracks
+- Track initializes title, length (all parts for its contructors)
+
