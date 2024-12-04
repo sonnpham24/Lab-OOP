@@ -11,25 +11,17 @@ public class Aims {
 		
 		// Create new dvd objects and add them to the cart
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc(1, "The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-		anOrder.addDigitalVideoDisc(dvd1);
+		anOrder.addMedia(dvd1);
 		
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc(2, "Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-		anOrder.addDigitalVideoDisc(dvd2);
+		anOrder.addMedia(dvd2);
 		
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc(3, "Aladin", "Animation", 18.99f);
-		anOrder.addDigitalVideoDisc(dvd3);
+		anOrder.addMedia(dvd3);
 		
 		DigitalVideoDisc dvd4 = new DigitalVideoDisc(4, "A Quiet Place: Day One", "Horror", "Michael Sarnoski", 99, 68.25f);
-		anOrder.addDigitalVideoDisc(dvd4);
+		anOrder.addMedia(dvd4);
 		
-		anOrder.removeDigitalVideoDisc(dvd4);
-		
-		// Add two DVDs at once
-        anOrder.addDigitalVideoDisc(dvd1, dvd2);
-        System.out.println("Total Cost: " + anOrder.totalCost());
-        
-		// Adding multiple DVDs using varargs
-		anOrder.addDigitalVideoDisc(dvd1, dvd2, dvd3);
-		System.out.println("Total Cost: " + anOrder.totalCost());
+		anOrder.removeMedia(dvd4);
 	}
 }
