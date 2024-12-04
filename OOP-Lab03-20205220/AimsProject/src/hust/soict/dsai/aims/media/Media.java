@@ -35,5 +35,19 @@ public abstract class Media {
         this.category = category;
         this.cost = cost;
 	}
+	
+	// Overriding equals() to check equality based on title
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // Check if the same reference
+        if (obj == null || getClass() != obj.getClass()) return false; // Check null or class type
+        Media media = (Media) obj; // Cast to Media
+        return title != null && title.equals(media.title); // Check if titles are equal
+    }
+
+    @Override
+    public int hashCode() {
+        return title != null ? title.hashCode() : 0; // Hash code based on title
+    }
 
 }

@@ -15,3 +15,18 @@ Answer:
 	+ CompactDisc only initializes artist, tracks
 - Track initializes title, length (all parts for its contructors)
 
+10. Unique item in a list
+Question: When overriding the equals() method of the Object class, you will have to cast the Object parameter obj to the type of Object that you are dealing with. For example, in the Media class, you must cast the Object obj to a Media, and then check the equality of the two objects’ attributes as the above requirements (i.e. title for Media; title and length for Track). If the passing object is not an instance of Media, what happens?
+Answer:
+If the passing object is not an instance of the expected class (e.g., Media in the Media class or Track in the Track class), the overridden equals() method will return false. This is due to the explicit type-checking step in the implementation:
+if (obj == null || getClass() != obj.getClass()) return false;
+- if (obj == null):
+	If obj is null, the method immediately returns false, because a null object cannot be equal to a valid object.
+
+- if (getClass() != obj.getClass()):
+	The getClass() method checks the runtime class of the current object (this) and the passed object (obj).
+	If the two classes are not the same, the method returns false. This ensures that only objects of the same class (or exact type) can be compared.
+
+- Casting after Check:
+	Once the type check passes, the obj can safely be cast to the desired type (e.g., Media or Track) without causing a ClassCastException.
+	If obj is not an instance of the correct class and you try to cast it without type-checking, a runtime error (ClassCastException) will occur.
