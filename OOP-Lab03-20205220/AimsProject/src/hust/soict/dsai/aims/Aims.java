@@ -34,11 +34,21 @@ public class Aims {
             showMenu();
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
-                case 1 -> viewStore();
-                case 2 -> updateStore();
-                case 3 -> seeCart();
-                case 0 -> System.out.println("Exiting application. Goodbye!");
-                default -> System.out.println("Invalid choice. Please try again.");
+                case 1:
+                    viewStore();
+                    break;
+                case 2:
+                    updateStore();
+                    break;
+                case 3:
+                    seeCart();
+                    break;
+                case 0:
+                    System.out.println("Exiting application. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         } while (choice != 0);
     }
@@ -61,12 +71,24 @@ public class Aims {
             storeMenu();
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
-                case 1 -> seeMediaDetails();
-                case 2 -> addMediaToCart();
-                case 3 -> playMedia();
-                case 4 -> seeCart();
-                case 0 -> System.out.println("Returning to main menu.");
-                default -> System.out.println("Invalid choice. Please try again.");
+                case 1:
+                    seeMediaDetails();
+                    break;
+                case 2:
+                    addMediaToCart();
+                    break;
+                case 3:
+                    playMedia();
+                    break;
+                case 4:
+                    seeCart();
+                    break;
+                case 0:
+                    System.out.println("Returning to main menu.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         } while (choice != 0);
     }
@@ -109,16 +131,22 @@ public class Aims {
             System.out.println("Please choose a number: 0-1-2");
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
-                case 1 -> cart.addMedia(media);
-                case 2 -> {
-                    if (media instanceof Playable playable) {
-                        playable.play();
-                    } else {
-                        System.out.println("This media cannot be played.");
-                    }
+            case 1:
+                cart.addMedia(media);
+                break;
+            case 2:
+                if (media instanceof Playable) {
+                    ((Playable) media).play(); // Explicit casting required in Java 8
+                } else {
+                    System.out.println("This media cannot be played.");
                 }
-                case 0 -> System.out.println("Returning to store menu.");
-                default -> System.out.println("Invalid choice. Please try again.");
+                break;
+            case 0:
+                System.out.println("Returning to store menu.");
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+                break;
             }
         } while (choice != 0);
     }
@@ -139,8 +167,8 @@ public class Aims {
         System.out.println("Enter the title of the media to play:");
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
-        if (media instanceof Playable playable) {
-            playable.play();
+        if (media instanceof Playable) {
+            ((Playable) media).play(); // Explicit casting required in Java 8
         } else if (media != null) {
             System.out.println("This media cannot be played.");
         } else {
@@ -154,21 +182,23 @@ public class Aims {
         System.out.println("2. Remove media from store");
         int choice = Integer.parseInt(scanner.nextLine());
         switch (choice) {
-            case 1 -> {
-                System.out.println("Adding new media is not implemented yet.");
+        case 1:
+            System.out.println("Adding new media is not implemented yet.");
+            break;
+        case 2:
+            System.out.println("Enter the title of the media to remove:");
+            String title = scanner.nextLine();
+            Media media = store.searchByTitle(title);
+            if (media != null) {
+                store.removeMedia(media);
+                System.out.println("Media removed from store.");
+            } else {
+                System.out.println("Media not found.");
             }
-            case 2 -> {
-                System.out.println("Enter the title of the media to remove:");
-                String title = scanner.nextLine();
-                Media media = store.searchByTitle(title);
-                if (media != null) {
-                    store.removeMedia(media);
-                    System.out.println("Media removed from store.");
-                } else {
-                    System.out.println("Media not found.");
-                }
-            }
-            default -> System.out.println("Invalid choice.");
+            break;
+        default:
+            System.out.println("Invalid choice.");
+            break;
         }
     }
 
@@ -179,13 +209,27 @@ public class Aims {
             cartMenu();
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
-                case 1 -> filterCart();
-                case 2 -> sortCart();
-                case 3 -> removeMediaFromCart();
-                case 4 -> playMediaFromCart();
-                case 5 -> placeOrder();
-                case 0 -> System.out.println("Returning to main menu.");
-                default -> System.out.println("Invalid choice. Please try again.");
+                case 1:
+                    filterCart();
+                    break;
+                case 2:
+                    sortCart();
+                    break;
+                case 3:
+                    removeMediaFromCart();
+                    break;
+                case 4:
+                    playMediaFromCart();
+                    break;
+                case 5:
+                    placeOrder();
+                    break;
+                case 0:
+                    System.out.println("Returning to main menu.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         } while (choice != 0);
     }
@@ -247,8 +291,8 @@ public class Aims {
         System.out.println("Enter the title of the media to play:");
         String title = scanner.nextLine();
         Media media = cart.searchByTitle(title);
-        if (media instanceof Playable playable) {
-            playable.play();
+        if (media instanceof Playable) {
+        	((Playable) media).play();
         } else if (media != null) {
             System.out.println("This media cannot be played.");
         } else {
