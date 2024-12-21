@@ -8,15 +8,21 @@ import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.MediaComparatorByCostTitle;
 import hust.soict.dsai.aims.media.MediaComparatorByTitleCost;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
-	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
-	
+	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
+
+    public ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
+    }
+
 	// Static comparator attributes
     public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();
     public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
-    
+
 	// Method to add media
 	public void addMedia(Media media) {
 		if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
