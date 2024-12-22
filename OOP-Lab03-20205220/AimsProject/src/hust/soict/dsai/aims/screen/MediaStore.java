@@ -3,6 +3,7 @@ package hust.soict.dsai.aims.screen;
 import java.awt.*;
 import javax.swing.*;
 
+import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
 import hust.soict.dsai.aims.store.Store;
@@ -10,9 +11,12 @@ import hust.soict.dsai.aims.store.Store;
 public class MediaStore extends JPanel {
 	private Media media;
 	private Store store;
-	public MediaStore(Media media, Store store) {
+	private Cart cart;
+	public MediaStore(Media media, Store store, Cart cart) {
 		
 		this.media = media;
+		this.store = store;
+		this.cart = cart;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JLabel title = new JLabel(media.getTitle());
@@ -27,7 +31,7 @@ public class MediaStore extends JPanel {
 		
 		JButton addToCartButton = new JButton("Add to cart");
 		addToCartButton.addActionListener(e -> {
-			store.addMediaToCart(media);
+			cart.addMedia(media);
 			JOptionPane.showMessageDialog(this, "Added " + media.getTitle() + " to cart!", "Success", JOptionPane.INFORMATION_MESSAGE);
 		});
 		container.add(addToCartButton);

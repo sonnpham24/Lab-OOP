@@ -2,6 +2,7 @@ package hust.soict.dsai.aims.screen;
 
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.store.Store;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
@@ -13,22 +14,27 @@ import java.io.IOException;
 
 public class CartScreen extends JFrame {
     private Cart cart;
+    private JFXPanel fxPanel;
+    private CartScreenController controller;
+    private StoreScreen storeScreen;
 
-    public CartScreen(Cart cart) {
+    public CartScreen(StoreScreen storeScreen, Cart cart) {
         super();
-
+        this.storeScreen = storeScreen;
         this.cart = cart;
         JFXPanel fxPanel = new JFXPanel();
         this.add(fxPanel);
 
         this.setTitle("Cart");
+        this.setSize(1000, 800);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/hust/soict/dsai/aims/screen/cart.fxml"));
-                    CartScreenController controller = new CartScreenController(cart);
+                    controller = new CartScreenController(cart, CartScreen.this);
                     loader.setController(controller);
                     Parent root = loader.load();
                     fxPanel.setScene(new Scene(root));
@@ -39,10 +45,16 @@ public class CartScreen extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Cart cart = new Cart();
-            new CartScreen(cart);
+    // Method to close the current JavaFX window and return to the StoreScreen
+    public void close() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                // Close the Swing JFrame (CartScreen)
+                CartScreen.this.dispose(); // Dispose of the JFrame properly
+                storeScreen.showStoreScreen();
+            }
         });
     }
+
 }
