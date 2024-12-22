@@ -1,4 +1,4 @@
-package hust.soict.dsai.aims;
+package hust.soict.dsai.aims.exception;
 
 // PlayerException class extends Exception
 public class PlayerException extends Exception {
