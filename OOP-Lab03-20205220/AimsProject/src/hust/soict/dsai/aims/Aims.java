@@ -13,12 +13,14 @@ import hust.soict.dsai.aims.media.Playable;
 import hust.soict.dsai.aims.media.Track;
 import hust.soict.dsai.aims.store.Store;
 
+import javax.naming.LimitExceededException;
+
 public class Aims {
 	private static Store store = new Store();
     private static Cart cart = new Cart();
     private static Scanner scanner = new Scanner(System.in);
     
-	public static void main(String[] args) {
+	public static void main(String[] args) throws LimitExceededException {
 		// Add some sample media to the store
         store.addMedia(new DigitalVideoDisc(1, "The Lion King", "Animation", "Roger Allers", 87, 19.95f));
         store.addMedia(new DigitalVideoDisc(2, "Inception", "Sci-Fi", "Christopher Nolan", 148, 24.99f));
@@ -64,7 +66,7 @@ public class Aims {
         System.out.println("Please choose a number: 0-1-2-3");
     }
 
-    public static void viewStore() {
+    public static void viewStore() throws LimitExceededException {
         store.printStore();
         int choice;
         do {
@@ -105,7 +107,7 @@ public class Aims {
         System.out.println("Please choose a number: 0-1-2-3-4");
     }
 
-    public static void seeMediaDetails() {
+    public static void seeMediaDetails() throws LimitExceededException {
         System.out.println("Enter the title of the media:");
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
@@ -117,7 +119,7 @@ public class Aims {
         }
     }
 
-    public static void mediaDetailsMenu(Media media) {
+    public static void mediaDetailsMenu(Media media) throws LimitExceededException {
         int choice;
         do {
             System.out.println("Options: ");
@@ -151,7 +153,7 @@ public class Aims {
         } while (choice != 0);
     }
 
-    public static void addMediaToCart() {
+    public static void addMediaToCart() throws LimitExceededException {
         System.out.println("Enter the title of the media to add to the cart:");
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);

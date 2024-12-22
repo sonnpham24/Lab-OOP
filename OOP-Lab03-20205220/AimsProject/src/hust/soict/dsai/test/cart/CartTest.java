@@ -11,9 +11,11 @@ import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Track;
 
+import javax.naming.LimitExceededException;
+
 public class CartTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws LimitExceededException {
 		//Create a new cart
 		Cart cart = new Cart();
 		
