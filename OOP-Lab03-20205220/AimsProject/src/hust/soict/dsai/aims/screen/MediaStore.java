@@ -1,6 +1,7 @@
 package hust.soict.dsai.aims.screen;
 
 import java.awt.*;
+import javax.naming.LimitExceededException;
 import javax.swing.*;
 
 import hust.soict.dsai.aims.cart.Cart;
@@ -31,8 +32,12 @@ public class MediaStore extends JPanel {
 		
 		JButton addToCartButton = new JButton("Add to cart");
 		addToCartButton.addActionListener(e -> {
-			cart.addMedia(media);
-			JOptionPane.showMessageDialog(this, "Added " + media.getTitle() + " to cart!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                cart.addMedia(media);
+            } catch (LimitExceededException ex) {
+                throw new RuntimeException(ex);
+            }
+            JOptionPane.showMessageDialog(this, "Added " + media.getTitle() + " to cart!", "Success", JOptionPane.INFORMATION_MESSAGE);
 		});
 		container.add(addToCartButton);
 		

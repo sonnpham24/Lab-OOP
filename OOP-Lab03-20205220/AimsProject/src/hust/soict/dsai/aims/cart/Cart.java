@@ -11,6 +11,8 @@ import hust.soict.dsai.aims.media.MediaComparatorByTitleCost;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.naming.LimitExceededException;
+
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
 	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
@@ -24,12 +26,12 @@ public class Cart {
     public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
 
 	// Method to add media
-	public void addMedia(Media media) {
+	public void addMedia(Media media) throws LimitExceededException {
 		if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
 			itemsOrdered.add(media);
 		}
 		else {
-			System.out.println("Cannot add media. The cart is full!");
+			throw new LimitExceededException("ERROR: The number of media has reached its limit");
 		}
 	}
 	

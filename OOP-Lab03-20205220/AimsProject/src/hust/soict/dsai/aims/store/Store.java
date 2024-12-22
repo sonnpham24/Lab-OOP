@@ -6,6 +6,8 @@ import java.util.List;
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.*;
 
+import javax.naming.LimitExceededException;
+
 public class Store {
     private Cart cart;
     private static final int MAX_ITEMS = 100; // Maximum DVDs the store can hold
@@ -76,7 +78,7 @@ public class Store {
     }
 
     // Method to add media to cart
-    public void addMediaToCart(Media media) {
+    public void addMediaToCart(Media media) throws LimitExceededException {
         if (cart != null) {
             cart.addMedia(media); // Add media to the cart
         } else {
