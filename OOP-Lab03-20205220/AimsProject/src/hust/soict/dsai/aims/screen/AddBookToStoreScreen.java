@@ -13,6 +13,8 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
     public AddBookToStoreScreen() {
         super("Add Book to Store");
 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         // Add Input Fields
         inputPanel.add(new JLabel("ID:"));
         idField = new JTextField();

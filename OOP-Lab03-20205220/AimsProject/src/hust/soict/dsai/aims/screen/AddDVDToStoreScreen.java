@@ -11,6 +11,8 @@ public class AddDVDToStoreScreen extends AddItemToStoreScreen {
     public AddDVDToStoreScreen() {
         super("Add DVD to Store");
 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         // Add Input Fields
         inputPanel.add(new JLabel("ID:"));
         idField = new JTextField();

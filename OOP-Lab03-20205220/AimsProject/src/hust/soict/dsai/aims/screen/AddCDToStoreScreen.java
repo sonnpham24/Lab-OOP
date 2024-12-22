@@ -11,6 +11,8 @@ public class AddCDToStoreScreen extends AddItemToStoreScreen {
     public AddCDToStoreScreen() {
         super("Add CD to Store");
 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         // Add Input Fields
         inputPanel.add(new JLabel("ID:"));
         idField = new JTextField();
