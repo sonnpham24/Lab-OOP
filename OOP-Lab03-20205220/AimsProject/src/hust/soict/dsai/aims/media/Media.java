@@ -43,15 +43,20 @@ public abstract class Media {
 	}
 	
 	// Overriding equals() to check equality based on title
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true; // Check if the same reference
-        if (obj == null || getClass() != obj.getClass()) return false; // Check null or class type
-        Media media = (Media) obj; // Cast to Media
-        return title != null && title.equals(media.title); // Check if titles are equal
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true; // Check if the same reference
+		if (obj == null) return false; // Check if the object is null
+		if (!(obj instanceof Media)) return false; // Check if the object is an instance of Media
 
-    @Override
+		Media media = (Media) obj; // Safely cast the object to Media
+
+		// Now we can safely compare the title of both media objects
+		return title != null && title.equals(media.title); // Check if titles are equal
+	}
+
+
+	@Override
     public int hashCode() {
         return title != null ? title.hashCode() : 0; // Hash code based on title
     }
