@@ -1,6 +1,8 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.exception.IllegalMediaLengthException;
 import hust.soict.dsai.aims.exception.PlayerException;
+import hust.soict.dsai.aims.exception.TrackNotFoundException;
 
 import java.util.*;
 
@@ -52,18 +54,21 @@ public class CompactDisc extends Disc implements Playable {
 
 	// Updated play method with PlayerException
 	public void play() throws PlayerException {
-		// Check if the CD has tracks
-		if (this.tracks == null || this.tracks.isEmpty()) {
-			throw new PlayerException("The CD " + this.getTitle() + " has no tracks and cannot be played.");
+		if (this.getLength() <= 0) {
+			throw new IllegalMediaLengthException("Error: CD Length is non-positive for " + this.getTitle());
 		}
 
-		// If tracks are present, proceed with playing the CD
+		if (tracks.isEmpty()) {
+			throw new TrackNotFoundException("Error: No tracks found for CD: " + this.getTitle());
+		}
+
 		System.out.println("Playing CD: " + this.getTitle());
-		System.out.println("Artist: " + this.getArtist());
+		System.out.println("Artist: " + this.artist);
+		System.out.println("Director: " + this.getDirector());
 		System.out.println("Total Length: " + this.getLength() + " min");
 		System.out.println("Tracks:");
 		for (Track track : tracks) {
-			track.play();  // Play each track
+			track.play();
 		}
 	}
     

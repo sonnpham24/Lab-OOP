@@ -1,6 +1,7 @@
 package hust.soict.dsai.aims.media;
 
 import hust.soict.dsai.aims.exception.PlayerException;
+import hust.soict.dsai.aims.exception.TrackNotFoundException;
 
 import java.util.Objects;
 
@@ -22,15 +23,12 @@ public class Track implements Playable {
 		this.length = length;
 	}
 
-	public void play() throws PlayerException {
-		// Check if the track has a valid length (or any other conditions)
+	public void play() throws TrackNotFoundException {
 		if (this.length <= 0) {
-			throw new PlayerException("The track " + this.getTitle() + " has an invalid length and cannot be played.");
+			throw new TrackNotFoundException("Error: Track length is non-positive for track: " + this.title);
 		}
-
-		// If the track has a valid length, proceed with playing the track
-		System.out.println("Playing Track: " + this.getTitle());
-		System.out.println("Track length: " + this.getLength());
+		System.out.println("Playing Track: " + this.title);
+		System.out.println("Track length: " + this.length + " min");
 	}
 	
 	// Override equals to check equality based on title and length
