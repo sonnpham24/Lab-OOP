@@ -24,17 +24,16 @@
             <MenuBar>
               <menus>
                 <Menu mnemonicParsing="false" text="Options">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="View Cart" />
+                        <MenuItem fx:id="viewStoreItem" mnemonicParsing="false" onAction="#viewStorePressed" text="View Store" />
+                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Update Store">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Add Book" />
                         <MenuItem mnemonicParsing="false" text="Add CD" />
                         <MenuItem mnemonicParsing="false" text="Add DVD" />
-                        <MenuItem mnemonicParsing="false" text="View Store" />
-                        <MenuItem mnemonicParsing="false" text="View Cart" />
                   </items>
                 </Menu>
               </menus>
@@ -83,8 +82,8 @@
             </TableView>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button fx:id="btnPlay" mnemonicParsing="false" text="Play" />
-                  <Button fx:id="btnRemove" layoutX="948.0" layoutY="17.0" mnemonicParsing="false" text="Remove" />
+                <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#btnPlayPressed" text="Play" />
+                  <Button fx:id="btnRemove" layoutX="948.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnRemovePressed" text="Remove" />
               </buttons>
             </ButtonBar>
          </children>
@@ -103,14 +102,14 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="0 $" textFill="AQUA">
+                  <Label fx:id="totalCostLabel" text="0 $" textFill="AQUA">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Place Order" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#btnPlaceOrderPressed" style="-fx-background-color: red;" text="Place Order" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

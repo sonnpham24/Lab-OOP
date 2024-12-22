@@ -6,16 +6,20 @@ import java.util.List;
 
 import javax.swing.*;
 
+import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.store.Store;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Track;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 
 public class StoreScreen extends JFrame {
 	private Store store;
-	
+	private Cart cart;
+
 	JPanel createNorth() {
 		JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
@@ -26,15 +30,26 @@ public class StoreScreen extends JFrame {
 	
 	JMenuBar createMenuBar() {
 		JMenu menu = new JMenu("Options");
-		
+
 		JMenu smUpdateStore = new JMenu("Update Store");
-		smUpdateStore.add(new JMenuItem("Add Book"));
-		smUpdateStore.add(new JMenuItem("Add CD"));
-		smUpdateStore.add(new JMenuItem("Add DVD"));
-		
+		smUpdateStore.add(new JMenuItem("Add Book"))
+				.addActionListener(e -> new AddBookToStoreScreen().setVisible(true));
+		smUpdateStore.add(new JMenuItem("Add CD"))
+				.addActionListener(e -> new AddCDToStoreScreen().setVisible(true));
+		smUpdateStore.add(new JMenuItem("Add DVD"))
+				.addActionListener(e -> new AddDVDToStoreScreen().setVisible(true));
+
 		menu.add(smUpdateStore);
 		menu.add(new JMenuItem("View Store"));
-		menu.add(new JMenuItem("View Cart"));
+		// View Cart menu item
+		JMenuItem viewCartItem = new JMenuItem("View Cart");
+		viewCartItem.addActionListener(e -> {
+			SwingUtilities.invokeLater(() -> {
+				setVisible(false);
+				new CartScreen(this, cart);
+			});
+		});
+		menu.add(viewCartItem);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -51,14 +66,22 @@ public class StoreScreen extends JFrame {
 		title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 50));
 		title.setForeground(Color.cyan);
 		
-		JButton cart = new JButton("View cart");
-		cart.setPreferredSize(new Dimension(100, 50));
-		cart.setMaximumSize(new Dimension(100, 50));
-		
+		JButton cartButton = new JButton("View cart");
+		cartButton.setPreferredSize(new Dimension(100, 50));
+		cartButton.setMaximumSize(new Dimension(100, 50));
+
+		// Add ActionListener to navigate to CartScreen
+		cartButton.addActionListener(e -> {
+			SwingUtilities.invokeLater(() -> {
+				setVisible(false);
+				new CartScreen(this, cart);
+			});
+		});
+
 		header.add(Box.createRigidArea(new Dimension(10, 10)));
 		header.add(title);
 		header.add(Box.createHorizontalGlue());
-		header.add(cart);
+		header.add(cartButton);
 		header.add(Box.createRigidArea(new Dimension(10, 10)));
 		
 		return header;
@@ -70,16 +93,23 @@ public class StoreScreen extends JFrame {
 		center.setLayout(new GridLayout(3, 3, 2, 2));
 		
 		ArrayList<Media> mediaInStore = store.getItemsInStore();
-		for (int i = 0; i < 9; i++) {
-			MediaStore cell = new MediaStore(mediaInStore.get(i), store);
+		int itemsToShow = Math.min(9, mediaInStore.size());
+		for (int i = 0; i < itemsToShow; i++) {
+			MediaStore cell = new MediaStore(mediaInStore.get(i), store, cart);
 			center.add(cell);
 		}
-		
+
+		for (int i = itemsToShow; i < 9; i++) {
+			center.add(new JPanel()); // Fill remaining cells with empty panels
+		}
+
 		return center;
 	}
 	
 	public StoreScreen(Store store) {
 		this.store = store;
+		this.cart = new Cart();
+		new JFXPanel();
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
 		
@@ -90,10 +120,24 @@ public class StoreScreen extends JFrame {
 		setTitle("Store");
 		setSize(1024, 768);
 	}
-	
+
+	// Method to show the StoreScreen
+	public void showStoreScreen() {
+		setVisible(true);
+	}
+
+	public void refreshCenterPanel() {
+		Container cp = getContentPane();
+		cp.remove(1); // Assuming the center panel is the second component
+		cp.add(createCenter(), BorderLayout.CENTER);
+		revalidate();
+		repaint();
+	}
+
+
 	public static void main(String[] args) {
 		Store store = new Store();
-		
+
 		store.addMedia(new DigitalVideoDisc(1, "The Lion King", "Animation", "Roger Allers", 87, 19.95f));
 		store.addMedia(new DigitalVideoDisc(2, "Star Wars", "Science Fiction", "George Lucas", 87, 24.95f));
 		store.addMedia(new DigitalVideoDisc(3, "Aladin", "Animation", 18.99f));
@@ -117,7 +161,7 @@ public class StoreScreen extends JFrame {
 		Media cd8 = new CompactDisc(8, "The Best of Rock", "Rock", "Various Artists", "Jane Smith", tracks2, 19.99f);
 		store.addMedia(cd8);
 		store.addMedia(new DigitalVideoDisc(9, "The Matrix", "Action", "Wachowski Brothers", 136, 22.95f));
-		
+
 		new StoreScreen(store);
 	}
 }
