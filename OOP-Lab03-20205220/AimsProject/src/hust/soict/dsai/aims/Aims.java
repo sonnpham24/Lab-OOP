@@ -121,7 +121,6 @@ public class Aims {
         }
     }
 
-
     public static void mediaDetailsMenu(Media media) throws LimitExceededException, PlayerException {
         int choice;
         do {
@@ -168,8 +167,13 @@ public class Aims {
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
         if (media != null) {
-            cart.addMedia(media);
-            System.out.println("Media added to cart.");
+            try {
+                cart.addMedia(media);
+                System.out.println("Media added to cart.");
+            } catch (LimitExceededException e) {
+                System.out.println("Error: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "LimitExceededException", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             System.out.println("Media not found.");
         }

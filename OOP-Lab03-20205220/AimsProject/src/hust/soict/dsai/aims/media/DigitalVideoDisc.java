@@ -1,6 +1,7 @@
 package hust.soict.dsai.aims.media;
 
 
+import hust.soict.dsai.aims.exception.IllegalMediaLengthException;
 import hust.soict.dsai.aims.exception.PlayerException;
 
 public class DigitalVideoDisc extends Disc implements Playable {
@@ -25,15 +26,13 @@ public class DigitalVideoDisc extends Disc implements Playable {
     	super(id, title, category, director, length, cost);
     }
 
-    public void play() throws PlayerException {
-        // Check if the DVD has a valid length (or any other conditions)
+    public void play() throws IllegalMediaLengthException {
         if (this.getLength() <= 0) {
-            throw new PlayerException("The DVD " + this.getTitle() + " has invalid length and cannot be played.");
+            throw new IllegalMediaLengthException("Error: DVD Length is non-positive for " + this.getTitle());
         }
 
-        // If the DVD has a valid length, proceed with playing the DVD
         System.out.println("Playing DVD: " + this.getTitle());
-        System.out.println("DVD length: " + this.getLength());
+        System.out.println("DVD Length: " + this.getLength() + " min");
     }
     
     // toString method for displaying DVD details
