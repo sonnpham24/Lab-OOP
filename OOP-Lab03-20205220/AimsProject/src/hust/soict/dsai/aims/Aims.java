@@ -15,6 +15,7 @@ import hust.soict.dsai.aims.media.Track;
 import hust.soict.dsai.aims.store.Store;
 
 import javax.naming.LimitExceededException;
+import javax.swing.*;
 
 public class Aims {
 	private static Store store = new Store();
@@ -120,6 +121,7 @@ public class Aims {
         }
     }
 
+
     public static void mediaDetailsMenu(Media media) throws LimitExceededException, PlayerException {
         int choice;
         do {
@@ -134,22 +136,29 @@ public class Aims {
             System.out.println("Please choose a number: 0-1-2");
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
-            case 1:
-                cart.addMedia(media);
-                break;
-            case 2:
-                if (media instanceof Playable) {
-                    ((Playable) media).play(); // Explicit casting required in Java 8
-                } else {
-                    System.out.println("This media cannot be played.");
-                }
-                break;
-            case 0:
-                System.out.println("Returning to store menu.");
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+                case 1:
+                    cart.addMedia(media);
+                    break;
+                case 2:
+                    if (media instanceof Playable) {
+                        try {
+                            ((Playable) media).play(); // Try to play the media
+                        } catch (PlayerException e) {
+                            // Handle the exception (log it and inform the user)
+                            System.out.println("Error: " + e.getMessage());
+                            e.printStackTrace();  // Print stack trace for debugging
+                            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "PlayerException", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        System.out.println("This media cannot be played.");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Returning to store menu.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         } while (choice != 0);
     }
@@ -171,7 +180,14 @@ public class Aims {
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
         if (media instanceof Playable) {
-            ((Playable) media).play(); // Explicit casting required in Java 8
+            try {
+                ((Playable) media).play(); // Try to play the media
+            } catch (PlayerException e) {
+                // Handle the exception (log it and inform the user)
+                System.out.println("Error: " + e.getMessage());
+                e.printStackTrace();  // Print stack trace for debugging
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "PlayerException", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (media != null) {
             System.out.println("This media cannot be played.");
         } else {
@@ -295,7 +311,14 @@ public class Aims {
         String title = scanner.nextLine();
         Media media = cart.searchByTitle(title);
         if (media instanceof Playable) {
-        	((Playable) media).play();
+            try {
+                ((Playable) media).play(); // Try to play the media
+            } catch (PlayerException e) {
+                // Handle the exception (log it and inform the user)
+                System.out.println("Error: " + e.getMessage());
+                e.printStackTrace();  // Print stack trace for debugging
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "PlayerException", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (media != null) {
             System.out.println("This media cannot be played.");
         } else {
