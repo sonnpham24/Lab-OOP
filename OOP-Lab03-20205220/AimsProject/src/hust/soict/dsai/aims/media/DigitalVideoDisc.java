@@ -1,6 +1,8 @@
 package hust.soict.dsai.aims.media;
 
 
+import hust.soict.dsai.aims.PlayerException;
+
 public class DigitalVideoDisc extends Disc implements Playable {
 	
 	// Constructor 1: Create a DVD object by title
@@ -22,11 +24,16 @@ public class DigitalVideoDisc extends Disc implements Playable {
     public DigitalVideoDisc(int id, String title, String category, String director, int length, float cost) {
     	super(id, title, category, director, length, cost);
     }
-    
-    // Method play()
-    public void play() {
-    	System.out.println("Playing DVD: " + this.getTitle());
-    	System.out.println("DVD length: " + this.getLength());
+
+    public void play() throws PlayerException {
+        // Check if the DVD has a valid length (or any other conditions)
+        if (this.getLength() <= 0) {
+            throw new PlayerException("The DVD " + this.getTitle() + " has invalid length and cannot be played.");
+        }
+
+        // If the DVD has a valid length, proceed with playing the DVD
+        System.out.println("Playing DVD: " + this.getTitle());
+        System.out.println("DVD length: " + this.getLength());
     }
     
     // toString method for displaying DVD details

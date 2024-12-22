@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.PlayerException;
+
 import java.util.*;
 
 public class CompactDisc extends Disc implements Playable {
@@ -48,16 +50,22 @@ public class CompactDisc extends Disc implements Playable {
         return totalLength;
     }
 
-    // Method play()
-    public void play() {
-    	System.out.println("Playing CD: " + this.getTitle());
-        System.out.println("Artist: " + this.getArtist());
-        System.out.println("Total Length: " + this.getLength() + " min");
-        System.out.println("Tracks:");
-        for (Track track : tracks) {
-            track.play();
-        }
-    }
+	// Updated play method with PlayerException
+	public void play() throws PlayerException {
+		// Check if the CD has tracks
+		if (this.tracks == null || this.tracks.isEmpty()) {
+			throw new PlayerException("The CD " + this.getTitle() + " has no tracks and cannot be played.");
+		}
+
+		// If tracks are present, proceed with playing the CD
+		System.out.println("Playing CD: " + this.getTitle());
+		System.out.println("Artist: " + this.getArtist());
+		System.out.println("Total Length: " + this.getLength() + " min");
+		System.out.println("Tracks:");
+		for (Track track : tracks) {
+			track.play();  // Play each track
+		}
+	}
     
     // toString method for displaying CD details
     @Override

@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.PlayerException;
+
 import java.util.Objects;
 
 public class Track implements Playable {
@@ -19,9 +21,14 @@ public class Track implements Playable {
 		this.title = title;
 		this.length = length;
 	}
-	
-	// Method play()
-	public void play() {
+
+	public void play() throws PlayerException {
+		// Check if the track has a valid length (or any other conditions)
+		if (this.length <= 0) {
+			throw new PlayerException("The track " + this.getTitle() + " has an invalid length and cannot be played.");
+		}
+
+		// If the track has a valid length, proceed with playing the track
 		System.out.println("Playing Track: " + this.getTitle());
 		System.out.println("Track length: " + this.getLength());
 	}

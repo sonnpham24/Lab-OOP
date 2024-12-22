@@ -20,7 +20,7 @@ public class Aims {
     private static Cart cart = new Cart();
     private static Scanner scanner = new Scanner(System.in);
     
-	public static void main(String[] args) throws LimitExceededException {
+	public static void main(String[] args) throws LimitExceededException, PlayerException {
 		// Add some sample media to the store
         store.addMedia(new DigitalVideoDisc(1, "The Lion King", "Animation", "Roger Allers", 87, 19.95f));
         store.addMedia(new DigitalVideoDisc(2, "Inception", "Sci-Fi", "Christopher Nolan", 148, 24.99f));
@@ -66,7 +66,7 @@ public class Aims {
         System.out.println("Please choose a number: 0-1-2-3");
     }
 
-    public static void viewStore() throws LimitExceededException {
+    public static void viewStore() throws LimitExceededException, PlayerException {
         store.printStore();
         int choice;
         do {
@@ -107,7 +107,7 @@ public class Aims {
         System.out.println("Please choose a number: 0-1-2-3-4");
     }
 
-    public static void seeMediaDetails() throws LimitExceededException {
+    public static void seeMediaDetails() throws LimitExceededException, PlayerException {
         System.out.println("Enter the title of the media:");
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
@@ -119,7 +119,7 @@ public class Aims {
         }
     }
 
-    public static void mediaDetailsMenu(Media media) throws LimitExceededException {
+    public static void mediaDetailsMenu(Media media) throws LimitExceededException, PlayerException {
         int choice;
         do {
             System.out.println("Options: ");
@@ -165,7 +165,7 @@ public class Aims {
         }
     }
 
-    public static void playMedia() {
+    public static void playMedia() throws PlayerException {
         System.out.println("Enter the title of the media to play:");
         String title = scanner.nextLine();
         Media media = store.searchByTitle(title);
@@ -204,7 +204,7 @@ public class Aims {
         }
     }
 
-    public static void seeCart() {
+    public static void seeCart() throws PlayerException {
         cart.print();
         int choice;
         do {
@@ -289,7 +289,7 @@ public class Aims {
         }
     }
 
-    public static void playMediaFromCart() {
+    public static void playMediaFromCart() throws PlayerException {
         System.out.println("Enter the title of the media to play:");
         String title = scanner.nextLine();
         Media media = cart.searchByTitle(title);
